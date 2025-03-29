@@ -13,7 +13,7 @@ font_path = "/tmp/NotoSansCJK-Regular.otf"
 # Download font if it doesn’t exist
 try:
     urllib.request.urlretrieve(font_url, font_path)
-    font_prop = fm.FontProperties(fname=font_path)  # Load downloaded font
+    font_prop = fm.FontProperties(fname=font_path, size=12)  # Load downloaded font
     plt.rcParams["font.family"] = font_prop.get_name()
 except Exception as e:
     print("Font download failed, using default font.", e)
@@ -117,8 +117,8 @@ ax.plot(df['periods'], df['projected_demands'], 'ro-', label='需求預測')
 ax.plot(df['periods'], df['MPS'], 'bs--', label='平準化生產')
 ax.plot(df['periods'], df['scheduled_stocks'], 'g^-', label='預計庫存')
 
-ax.set_xlabel('週期')
-ax.set_ylabel('數量', rotation=0, labelpad=20)
-ax.set_title("需求預測 vs. 平準化生產")
-ax.legend()
+ax.set_xlabel('週期', fontproperties=font_prop)
+ax.set_ylabel('數量', fontproperties=font_prop, rotation=0, labelpad=20)
+ax.set_title("需求預測 vs. 平準化生產", fontproperties=font_prop)
+legend = ax.legend(prop=font_prop)
 st.pyplot(fig)
