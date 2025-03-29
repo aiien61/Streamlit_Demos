@@ -103,10 +103,10 @@ for i in range(num_periods):
 
 # Convert to vertical dataframe
 df = pl.DataFrame({
-    "periods": list(range(1, num_periods + 1)),
-    "projected_demands": demand_values,
-    "scheduled_stocks": scheduled_stocks,
-    "MPS": production_plan
+    "週期": list(range(1, num_periods + 1)),
+    "需求量": demand_values,
+    "庫存量": scheduled_stocks,
+    "生產量": production_plan
 })
 
 # Display the table
@@ -117,12 +117,12 @@ st.dataframe(df)
 st.subheader("需求與生產計劃圖表")
 
 fig, ax = plt.subplots()
-ax.plot(df['periods'], df['projected_demands'], 'ro-', label='需求預測')
-ax.plot(df['periods'], df['MPS'], 'bs--', label='平準化生產')
-ax.plot(df['periods'], df['scheduled_stocks'], 'g^-', label='預計庫存')
+ax.plot(df['週期'], df['需求量'], 'ro-', label='需求預測')
+ax.plot(df['週期'], df['生產量'], 'bs--', label='平準化生產')
+ax.plot(df['週期'], df['庫存量'], 'g^-', label='預計庫存')
 
-ax.set_xlabel('週期', fontproperties=font_prop)
-ax.set_ylabel('數量', fontproperties=font_prop, rotation=0, labelpad=20)
-ax.set_title("需求預測 vs. 平準化生產", fontproperties=font_prop)
+ax.set_xlabel('Weeks', fontproperties=font_prop)
+ax.set_ylabel('Qty', fontproperties=font_prop, rotation=0, labelpad=20)
+ax.set_title("Demands / Stocks / MPS", fontproperties=font_prop)
 legend = ax.legend(prop=font_prop)
 st.pyplot(fig)
