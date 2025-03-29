@@ -5,9 +5,22 @@ import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 from typing import List
 
+# Custom CSS to import Google Fonts
+custom_css = """
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
 
-plt.rcParams["font.family"] = "Noto Sans CJK"
-plt.rcParams['axes.unicode_minus'] = False  # 避免負號變成方塊
+html, body, [class*="st-"] {
+    font-family: 'Noto Sans TC', sans-serif;
+}
+</style>
+"""
+
+st.markdown(custom_css, unsafe_allow_html=True)
+
+
+# plt.rcParams["font.family"] = "Noto Sans CJK"
+# plt.rcParams['axes.unicode_minus'] = False  # 避免負號變成方塊
 
 # Name the title
 st.title('主生產排程 (MPS) 系統')
