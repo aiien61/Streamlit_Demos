@@ -1,12 +1,26 @@
 import streamlit as st
+import urllib.request
 import polars as pl
 import numpy as np
+import matplotlib.font_manager as fm
 import matplotlib.pyplot as plt
 from typing import List
 
-# plt.rcParams["font.family"] = "Noto Sans CJK"
-plt.rcParams['font.sans-serif'] = ['SimHei']
-plt.rcParams['axes.unicode_minus'] = False
+# Download Noto Sans CJK if not present
+font_url = "https://github.com/notofonts/noto-cjk/raw/main/Sans/OTF/NotoSansCJK-Regular.otf"
+font_path = "/tmp/NotoSansCJK-Regular.otf"
+
+# Download font if it doesn’t exist
+try:
+    urllib.request.urlretrieve(font_url, font_path)
+    font_prop = fm.FontProperties(fname=font_path)  # Load downloaded font
+    plt.rcParams["font.family"] = font_prop.get_name()
+except Exception as e:
+    print("Font download failed, using default font.", e)
+    plt.rcParams["font.sans-serif"] = ["SimHei"]
+
+# Ensure negative signs display correctly
+plt.rcParams["axes.unicode_minus"] = False
 
 st.title('主生產排程 (MPS) 系統')
 st.markdown("#### 平準化生產 (Leveling Production Strategy) ")
