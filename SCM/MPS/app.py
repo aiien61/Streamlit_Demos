@@ -2,25 +2,29 @@ import streamlit as st
 import urllib.request
 import polars as pl
 import numpy as np
+import os
 import matplotlib.font_manager as fm
 import matplotlib.pyplot as plt
 from typing import List
 
-# Download Noto Sans CJK if not present
-font_url = "https://github.com/notofonts/noto-cjk/raw/main/Sans/OTF/NotoSansCJK-Regular.otf"
-font_path = "/tmp/NotoSansCJK-Regular.otf"
+# Define font path
+font_path: str = "/tmp/NotoSansCJK-Regular.otf"
 
-# Download font if it doesn’t exist
-try:
-    urllib.request.urlretrieve(font_url, font_path)
-    font_prop = fm.FontProperties(fname=font_path, size=12)  # Load downloaded font
-    # plt.rcParams["font.family"] = font_prop.get_name()
-except Exception as e:
-    print("Font download failed, using default font.", e)
-    plt.rcParams["font.sans-serif"] = ["SimHei"]
+# Download font if it doesn't exist
+if not os.path.exists(font_path):
+    font_url:str = "https://github.com/notofonts/noto-cjk/raw/main/Sans/OTF/NotoSansCJK-Regular.otf"
+    try:
+        urllib.request.urlretrieve(font_url, font_path)
+    except Exception as e:
+        print("Font download failed, using default font.", e)
+        font_path = None  # Mark font as unavailable
 
-# Ensure negative signs display correctly
-plt.rcParams["axes.unicode_minus"] = False
+# Try loading the font
+if font_path and os.path.exists(font_path):
+    font_prop = fm.FontProperties(fname=font_path, size=12)  # Define font properties
+    plt.rcParams["font.family"] = font_prop.get_name()  # Apply globally
+else:
+    font_prop = None  # Avoid using an undefined variable
 
 st.title('主生產排程 (MPS) 系統')
 st.markdown("#### 平準化生產 (Leveling Production Strategy) ")
