@@ -14,7 +14,7 @@ font_path = "/tmp/NotoSansCJK-Regular.otf"
 try:
     urllib.request.urlretrieve(font_url, font_path)
     font_prop = fm.FontProperties(fname=font_path, size=12)  # Load downloaded font
-    plt.rcParams["font.family"] = font_prop.get_name()
+    # plt.rcParams["font.family"] = font_prop.get_name()
 except Exception as e:
     print("Font download failed, using default font.", e)
     plt.rcParams["font.sans-serif"] = ["SimHei"]
