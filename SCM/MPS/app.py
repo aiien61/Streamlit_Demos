@@ -117,9 +117,9 @@ st.dataframe(df)
 st.subheader("需求與生產計劃圖表")
 
 fig, ax = plt.subplots()
-ax.plot(df['週期'], df['需求量'], 'ro-', label='需求預測')
-ax.plot(df['週期'], df['生產量'], 'bs--', label='平準化生產')
-ax.plot(df['週期'], df['庫存量'], 'g^-', label='預計庫存')
+ax.plot(df['週期'], df['需求量'], 'ro-', label='Demands')
+ax.plot(df['週期'], df['生產量'], 'bs--', label='MPS')
+ax.plot(df['週期'], df['庫存量'], 'g^-', label='Stocks')
 
 ax.set_xlabel('Weeks', fontproperties=font_prop)
 ax.set_ylabel('Qty', fontproperties=font_prop, rotation=0, labelpad=20)
